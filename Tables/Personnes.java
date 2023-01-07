@@ -10,6 +10,12 @@ public class Personnes {
 
     }
 
+    public Personnes(String nom, String prenom, String login) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.login = login;
+    }
+
     public Personnes(String nom, String prenom, String login, String pwd) {
         this.nom = nom;
         this.prenom = prenom;
@@ -50,7 +56,7 @@ public class Personnes {
     }
 
     public String toString() {
-        return "le nom =" + this.nom + "  ,   le prenom = " + this.prenom;
+        return " Nom : " + this.nom + " , Prenom : " + this.prenom;
     }
 
 }

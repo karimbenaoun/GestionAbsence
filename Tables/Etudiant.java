@@ -13,6 +13,10 @@ public class Etudiant extends Personnes {
         this.id_etudiant = id_etudiant;
         this.id_classe = id_classe;
     }
+    public Etudiant(int id_etudiant, String nom, String prenom, String login){
+        super(nom, prenom, login);
+        this.id_etudiant=id_etudiant;
+    }
 
     public Etudiant(String nom, String prenom, String login, String pwd, int id_classe) {
         super(nom, prenom, login, pwd);
@@ -36,6 +40,6 @@ public class Etudiant extends Personnes {
     }
 
     public String toString() {
-        return "id etudiant =  " + this.id_etudiant + super.toString() + "id classe =  " + this.id_classe;
+        return "id etudiant : " + this.id_etudiant + super.toString() + " id classe : " + this.id_classe;
     }
 }

@@ -3,20 +3,22 @@ package GestionTables;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-
 import java.sql.*;
+
 import GUI.DashboardEtudiant;
+import Tables.Etudiant;
+import DataBase.Base;
 
 public class GestionEtudiant {
     private Connection cnn;
+    private Base db;
+    int id_etudiant;
+    String nom, prenom,login;
 
     public GestionEtudiant() {
     }
 
-    public boolean authentifier(String passwd, String username) {
+    public Etudiant authentifier(String passwd, String username) {
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -40,17 +42,20 @@ public class GestionEtudiant {
 
         try {
             PreparedStatement preparedStatement = this.cnn.prepareStatement(query);
-            ResultSet res = preparedStatement.executeQuery();
-            System.out.println(res);
+            ResultSet res = preparedStatement.executeQuery(query);
             if (res.next()) {
-                new DashboardEtudiant();
-                return true;
+                id_etudiant = res.getInt(1);
+                nom = res.getString(2);
+                prenom = res.getString(3);
+                login = res.getString(4);
+                Etudiant etudiant = new Etudiant(id_etudiant, nom, prenom, login);
+                return etudiant;
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        return false;
+        return null;
     }
 
 }
