@@ -6,7 +6,7 @@ import DataBase.Base;
 import Tables.Enseignant;
 
 public class GestionEnseignant {
-    private Base cnn;
+    private Base cn;
     private Enseignant enseignant;
 
     public GestionEnseignant(Base cn) {

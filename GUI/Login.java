@@ -1,9 +1,6 @@
 package GUI;
 
 import java.awt.event.*;
-import java.sql.SQLException;
-import java.awt.*;
-import Tables.Etudiant;
 import GestionTables.GestionEtudiant;
 
 import javax.swing.JButton;
@@ -11,7 +8,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.plaf.ColorUIResource;
 import DataBase.Base;
 
 public class Login extends JFrame {
@@ -44,8 +40,8 @@ public class Login extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                cnn = new Base();
-                gestionEtudiant = new GestionEtudiant(cnn);
+                gestionEtudiant = new GestionEtudiant();
+                gestionEtudiant.authentifier(pfPassword, pfPassword);
             }
 
         });
