@@ -16,7 +16,7 @@ public class GestionEtudiant {
     public GestionEtudiant() {
     }
 
-    public void authentifier(String passwd, String username) {
+    public boolean authentifier(String passwd, String username) {
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -43,13 +43,14 @@ public class GestionEtudiant {
             ResultSet res = preparedStatement.executeQuery();
             System.out.println(res);
             if (res.next()) {
-                System.out.println(query);
                 new DashboardEtudiant();
+                return true;
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        return false;
     }
 
 }

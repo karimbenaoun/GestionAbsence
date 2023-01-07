@@ -1,11 +1,19 @@
 package GUI;
 
 import java.awt.event.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 import GestionTables.GestionEtudiant;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import DataBase.Base;
@@ -20,6 +28,7 @@ public class Login extends JFrame {
     GestionEtudiant gestionEtudiant;
     String userLogin;
     char[] userPassword;
+    Connection cnn;
 
     public Login() {
 
@@ -47,10 +56,16 @@ public class Login extends JFrame {
                 userPassword = pfPassword.getPassword();
                 System.out.println("pass => " + new String(userPassword) + "|| login username => " + userLogin);
                 String userPasswd = new String(userPassword);
-                gestionEtudiant.authentifier(userPasswd, userLogin);
+                boolean auth;
+                auth = gestionEtudiant.authentifier(userPasswd, userLogin);
+                System.out.println("auth =>" + auth);
+                if(auth){
+                    dispose();
+                }else{
+                    JOptionPane.showMessageDialog(frame, "mot de passe ou username n'est pas correct !.");
+                }
 
             }
-
         });
 
         setTitle("Gestion Absence ~ User Login");

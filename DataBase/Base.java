@@ -10,25 +10,25 @@ public class Base {
     public Base() {
     }
 
-    // public void connect() {
-    //     try {
-    //         Class.forName("com.mysql.jdbc.Driver");
-    //     } catch (ClassNotFoundException e1) {
-    //         e1.printStackTrace();
-    //     }
-    //     String ur1 = "jdbc:mysql://localhost:3306/gestion_absence";
-    //     String username = "root";
-    //     String password = "";
-    //     try {
-    //         this.conn = DriverManager.getConnection(ur1, username, password);
-    //         Statement state = this.conn.createStatement();
-            
-    //         System.out.println("Connection avec succées ");
-    //     } catch (SQLException e) {
-    //         System.out.println("connection failed ");
-    //         System.out.println(e.toString());
-    //     }
-    // }
+     public void connect() {
+         try {
+             Class.forName("com.mysql.jdbc.Driver");
+         } catch (ClassNotFoundException e1) {
+             e1.printStackTrace();
+         }
+         String ur1 = "jdbc:mysql://localhost:3306/gestion_absence";
+         String DBusername = "root";
+         String password = "";
+         try {
+             this.conn = DriverManager.getConnection(ur1, DBusername, password);
+             Statement state = this.conn.createStatement();
+
+             System.out.println("Connection avec succées ");
+         } catch (SQLException e) {
+             System.out.println("connection failed ");
+             System.out.println(e.toString());
+         }
+     }
 
     public void close() {
         try {
@@ -63,8 +63,6 @@ public class Base {
         }
     }
 
-    private void connect() {
-    }
 
     public ResultSet useStatament(String SQLQuuerry) {
         this.connect();
