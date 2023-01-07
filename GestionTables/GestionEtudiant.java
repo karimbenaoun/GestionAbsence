@@ -10,12 +10,13 @@ import javax.swing.JTextField;
 import java.sql.*;
 import GUI.DashboardEtudiant;
 
-
 public class GestionEtudiant {
     private Connection cnn;
-    public GestionEtudiant(){}
-    
-    public void authentifier(JPasswordField passwd, JTextField username) {
+
+    public GestionEtudiant() {
+    }
+
+    public void authentifier(String passwd, String username) {
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -26,7 +27,7 @@ public class GestionEtudiant {
         String DBusername = "root";
         String password = "";
         try {
-            this.cnn = DriverManager.getConnection(ur1,DBusername,password);
+            this.cnn = DriverManager.getConnection(ur1, DBusername, password);
             Statement state = this.cnn.createStatement();
 
             System.out.println("Connection avec succées ");
@@ -35,14 +36,14 @@ public class GestionEtudiant {
             System.out.println(e.toString());
         }
 
-
         String query = "SELECT * FROM ETUDIANT WHERE login ='" + username + "' AND passwd = '" + passwd + "'";
 
         try {
             PreparedStatement preparedStatement = this.cnn.prepareStatement(query);
             ResultSet res = preparedStatement.executeQuery();
+            System.out.println(res);
             if (res.next()) {
-                System.out.println("hola success");
+                System.out.println(query);
                 new DashboardEtudiant();
             }
         } catch (SQLException e) {
@@ -50,7 +51,5 @@ public class GestionEtudiant {
             e.printStackTrace();
         }
     }
-
-   
 
 }

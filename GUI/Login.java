@@ -18,7 +18,8 @@ public class Login extends JFrame {
     JPasswordField pfPassword;
     JButton btnConnection;
     GestionEtudiant gestionEtudiant;
-    Base cnn;
+    String userLogin;
+    char[] userPassword;
 
     public Login() {
 
@@ -36,12 +37,18 @@ public class Login extends JFrame {
 
         btnConnection = new JButton("connection");
         btnConnection.setBounds(300, 140, 100, 30);
+
         btnConnection.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 gestionEtudiant = new GestionEtudiant();
-                gestionEtudiant.authentifier(pfPassword, pfPassword);
+                userLogin = tfLogin.getText();
+                userPassword = pfPassword.getPassword();
+                System.out.println("pass => " + new String(userPassword) + "|| login username => " + userLogin);
+                String userPasswd = new String(userPassword);
+                gestionEtudiant.authentifier(userPasswd, userLogin);
+
             }
 
         });
