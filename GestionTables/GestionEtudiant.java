@@ -3,7 +3,12 @@ package GestionTables;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+
 import DataBase.Base;
+import GUI.DashboardEtudiant;
 import Tables.Etudiant;
 
 public class GestionEtudiant {
@@ -28,6 +33,26 @@ public class GestionEtudiant {
 
     public void setEtudiant(Etudiant etudiant) {
         this.etudiant = etudiant;
+    }
+
+    public Etudiant authentifier(JPasswordField passwd, JTextField username) {
+        String query = "SELECT * FROM ETUDIANT WHERE login ='" + username + "' AND passwd = '" + passwd + "'";
+
+        try {
+            PreparedStatement preparedStatement = cnn.preparedStatement(query);
+            ResultSet res = preparedStatement.executeQuery();
+            if (res.next()) {
+                new DashboardEtudiant();
+                Etudiant etudiant = new Etudiant(res.getInt(1), res.getString(2), res.getString(3), res.getString(4),
+                        res.getString(5), res.getInt(6));
+                System.out.println(etudiant);
+                return etudiant;
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public Etudiant trouvEtudiant(int id_etudiant) {

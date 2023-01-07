@@ -6,7 +6,7 @@ import DataBase.Base;
 import Tables.Enseignant;
 
 public class GestionEnseignant {
-    private Base cn = new Base();
+    private Base cnn;
     private Enseignant enseignant;
 
     public GestionEnseignant(Base cn) {

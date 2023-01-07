@@ -38,8 +38,7 @@ public class GestionAbsence {
             preparedStatement.setInt(1, id_etudiant);
             ResultSet res = preparedStatement.executeQuery();
             if (res.next()) {
-                Absence absence = new Absence(res.getInt(1), res.getInt(2), res.getInt(3), res.getInt(4),
-                        res.getDate(5));
+                Absence absence = new Absence(res.getInt(1), res.getDate(5), res.getInt(3), res.getInt(4));
                 return absence;
             }
         } catch (Exception e) {
@@ -107,8 +106,7 @@ public class GestionAbsence {
             preparedStatement.setInt(1, id_etudiant);
             ResultSet res = preparedStatement.executeQuery();
             if (res.next()) {
-                Absence absence = new Absence(res.getInt(1), res.getInt(2), res.getInt(3), res.getInt(4),
-                        res.getDate(5));
+                Absence absence = new Absence(res.getInt(1), res.getDate(5), res.getInt(2), res.getInt(3));
                 System.out.println(absence.toString());
             }
 
