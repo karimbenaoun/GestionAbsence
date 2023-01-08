@@ -101,7 +101,11 @@ public class DashboardEtudiant extends JFrame {
                 DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
                 String strDate = dateFormat.format(date);
                 String column[] = {"Seance", "Date", "Etudiant", "Enseignant", "Matiere"};
-                String data[][] = {{ numSeance, strDate, idEtt, idEs, idMt}};
+                Object data[][] = {
+                        { numSeance, strDate, idEtt, idEs, idMt },
+                        { numSeance, strDate, idEtt, idEs, idMt },
+                        { numSeance, strDate, idEtt, idEs, idMt }
+                };
                 tableau1 = new JTable(data,column);
                 tableau1.setBounds(10, 70, 600, 500);
                 add(tableau1);
