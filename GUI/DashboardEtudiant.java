@@ -83,7 +83,8 @@ public class DashboardEtudiant extends JFrame {
         try {
             Statement stm = this.cnn.prepareStatement(query);
             ResultSet res = stm.executeQuery(query);
-            while (res.next()) {
+            int i = 0;
+            if (res.next()) {
                 int numSea = res.getInt(1);
                 String numSeance = Integer.toString(numSea);
 
