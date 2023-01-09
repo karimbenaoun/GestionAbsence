@@ -135,18 +135,15 @@ public class DashboardEtudiant extends JFrame {
             column.addElement("id matiere");
 
             JTable table = new JTable(data, column);
+            table.setBounds(15,75,560,700);
+            add(table);
+            System.out.println(data);
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
         /* DB treatment */
-
-        libelleNom = new JLabel(nom);
-        libellePrenom = new JLabel(prenom);
-
-        libelleNom.setBounds(10, 5, 200, 35);
-        libellePrenom.setBounds(100, 5, 200, 35);
 
         libelleNom = new JLabel(nom);
         libellePrenom = new JLabel(prenom);
@@ -172,12 +169,12 @@ public class DashboardEtudiant extends JFrame {
         add(libelleEtudiant);
         add(libelleEnseignant);
         add(libelleMatier);
-        add(tableau1);
+        
         add(libelleNom);
         add(libellePrenom);
         add(libelleIdClasse);
         setTitle("Gestion Absence ~ Etudiant Dashboard");
-        setSize(1000, 700);
+        setSize(600, 700);
         setLayout(null);
         setVisible(true);
     }
