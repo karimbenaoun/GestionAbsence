@@ -15,10 +15,11 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import com.mysql.jdbc.PreparedStatement;
-
 import GestionTables.GestionEtudiant;
+import Tables.Classe;
+import Tables.Enseignant;
 import Tables.Etudiant;
+import Tables.Matiere;
 import DataBase.Base;
 
 public class DashboardEtudiant extends JFrame {
@@ -31,15 +32,17 @@ public class DashboardEtudiant extends JFrame {
     JTable tableau1;
 
     private Etudiant etudiant;
+    private Enseignant enseignant;
+    private Matiere matiere;
     private GestionEtudiant gestionEtudiant;
-    private Base db;
+    
     private Connection cnn;
 
     public DashboardEtudiant(String username, String password) {
 
         this.frame = new JFrame();
-        db = new Base();
         etudiant = new Etudiant();
+        enseignant = new Enseignant();
         gestionEtudiant = new GestionEtudiant();
         tableau1 = new JTable();
         DefaultTableModel dtm = new DefaultTableModel(0, 0);
@@ -71,6 +74,8 @@ public class DashboardEtudiant extends JFrame {
             System.out.println(e.toString());
         }
 
+        
+
         String query = "SELECT * FROM CLASSE WHERE id = '" + id_class + "'";
         try {
             Statement stm = this.cnn.prepareStatement(query);
@@ -83,6 +88,8 @@ public class DashboardEtudiant extends JFrame {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+
 
         query = "SELECT * FROM ABSENCE WHERE id_etudiant = '" + id + "'";
         try {
@@ -114,31 +121,41 @@ public class DashboardEtudiant extends JFrame {
                 int idMat = res.getInt(5);
                 String idMt = Integer.toString(idMat);
 
-                System.out.println("num seance : " + numSeance + " date : " + strDate + " id etudiant : " + idEtt
-                        + " id enseignant : " + idEs + " id matiere : " + idMt);
+                String query50 = "SELECT * FROM enseignant WHERE id = '"+idEns+"' ";
+                String query51 = "SELECT * FROM matiere WHERE id = '" + idMat + "' ";
 
-                Vector<String> row1 = new Vector<String>();
-                row1.addElement(numSeance);
-                row1.addElement(strDate);
-                row1.addElement(idEtt);
-                row1.addElement(idEs);
-                row1.addElement(idMt);
+                    Statement stm50 = this.cnn.prepareStatement(query50);
+                    ResultSet res50 = stm50.executeQuery(query50);
+                    Statement stm51= this.cnn.prepareStatement(query51);
+                    ResultSet res51 = stm51.executeQuery(query51);
+                    if (res50.next() && res51.next()) {
+                        String nomEns = res50.getString(2);
+                        String mat = res51.getString(2);
+                        System.out.println("num seance : " + numSeance + " date : " + strDate + " id etudiant : " + nom
+                                + " id enseignant : " + nomEns + " id matiere : " + mat);
 
-                data.addElement(row1);
+                                Vector<String> row1 = new Vector<String>();
+                        row1.addElement(numSeance);
+                        row1.addElement(strDate);
+                        row1.addElement(nom);
+                        row1.addElement(nomEns);
+                        row1.addElement(mat);
 
+                        data.addElement(row1);
+
+                        Vector<String> column = new Vector<String>();
+                        column.addElement("Seance");
+                        column.addElement("Date");
+                        column.addElement("id etudiant");
+                        column.addElement("id enseignat");
+                        column.addElement("id matiere");
+
+                        JTable table = new JTable(data, column);
+                        table.setBounds(15, 75, 560, 700);
+                        add(table);
+                        System.out.println(data);
+                    }
             }
-            Vector<String> column = new Vector<String>();
-            column.addElement("Seance");
-            column.addElement("Date");
-            column.addElement("id etudiant");
-            column.addElement("id enseignat");
-            column.addElement("id matiere");
-
-            JTable table = new JTable(data, column);
-            table.setBounds(15,75,560,700);
-            add(table);
-            System.out.println(data);
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
