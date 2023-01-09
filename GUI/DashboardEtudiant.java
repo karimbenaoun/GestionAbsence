@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Vector;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -29,7 +30,6 @@ public class DashboardEtudiant extends JFrame {
     private JLabel libelleIdClasse;
     JTable tableau1;
 
-
     private Etudiant etudiant;
     private GestionEtudiant gestionEtudiant;
     private Base db;
@@ -44,7 +44,7 @@ public class DashboardEtudiant extends JFrame {
         tableau1 = new JTable();
         DefaultTableModel dtm = new DefaultTableModel(0, 0);
         etudiant = gestionEtudiant.authentifier(password, username);
-        System.out.println("Dashboard GUI: "+ etudiant);
+        System.out.println("Dashboard GUI: " + etudiant);
 
         int id = etudiant.getIdEtudiant();
         String nom = etudiant.getNom();
@@ -52,7 +52,7 @@ public class DashboardEtudiant extends JFrame {
         int id_class = etudiant.getIdClasse();
         String id_classe = Integer.toString(id_class);
 
-    /* DB treatment */
+        /* DB treatment */
         try {
             Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException e1) {
@@ -71,7 +71,7 @@ public class DashboardEtudiant extends JFrame {
             System.out.println(e.toString());
         }
 
-        String query = "SELECT * FROM CLASSE WHERE id = '"+id_class+"'";
+        String query = "SELECT * FROM CLASSE WHERE id = '" + id_class + "'";
         try {
             Statement stm = this.cnn.prepareStatement(query);
             ResultSet res = stm.executeQuery(query);
@@ -84,7 +84,7 @@ public class DashboardEtudiant extends JFrame {
             e.printStackTrace();
         }
 
-        query = "SELECT * FROM ABSENCE WHERE id_etudiant = '"+id+"'";
+        query = "SELECT * FROM ABSENCE WHERE id_etudiant = '" + id + "'";
         try {
             Statement stm = this.cnn.prepareStatement(query);
             ResultSet res = stm.executeQuery(query);
@@ -95,10 +95,15 @@ public class DashboardEtudiant extends JFrame {
             int numRow = res2.getRow();
             res2.next();
             System.out.println("Rows /> " + res2.getInt("jk"));
+            Vector<Vector> data = new Vector<Vector>();
             while (res.next()) {
 
                 int numSea = res.getInt(1);
                 String numSeance = Integer.toString(numSea);
+
+                Date date = res.getDate(2);
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+                String strDate = dateFormat.format(date);
 
                 int idEt = res.getInt(3);
                 String idEtt = Integer.toString(idEt);
@@ -109,32 +114,37 @@ public class DashboardEtudiant extends JFrame {
                 int idMat = res.getInt(5);
                 String idMt = Integer.toString(idMat);
 
-                Date date = res.getDate(2);
-                DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
-                String strDate = dateFormat.format(date);
+                System.out.println("num seance : " + numSeance + " date : " + strDate + " id etudiant : " + idEtt
+                        + " id enseignant : " + idEs + " id matiere : " + idMt);
 
-                System.out.println("num seance : "+numSeance + " date : "+ strDate+ " id etudiant : " + idEtt + " id enseignant : "+idEs+ " id matiere : " + idMt  );
+                Vector<String> row1 = new Vector<String>();
+                row1.addElement(numSeance);
+                row1.addElement(strDate);
+                row1.addElement(idEtt);
+                row1.addElement(idEs);
+                row1.addElement(idMt);
 
-                String column[] = {"Seance", "Date", "Etudiant", "Enseignant", "Matiere"};
-                dtm.setColumnIdentifiers(column);
-                for(int i = 0; i < res2.getInt("jk");i++){
-                    
+                data.addElement(row1);
 
-                        dtm.addRow(new Object[] { numSea, date, idEt, idEs, idMat,});
-                        tableau1.setModel(dtm);
-                }
             }
-            
+            Vector<String> column = new Vector<String>();
+            column.addElement("Seance");
+            column.addElement("Date");
+            column.addElement("id etudiant");
+            column.addElement("id enseignat");
+            column.addElement("id matiere");
+
+            JTable table = new JTable(data, column);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-
-    /* DB treatment */
+        /* DB treatment */
 
         libelleNom = new JLabel(nom);
         libellePrenom = new JLabel(prenom);
-        
+
         libelleNom.setBounds(10, 5, 200, 35);
         libellePrenom.setBounds(100, 5, 200, 35);
 
@@ -155,7 +165,6 @@ public class DashboardEtudiant extends JFrame {
         libelleEtudiant.setBounds(257, 40, 200, 35);
         libelleEnseignant.setBounds(380, 40, 200, 35);
         libelleMatier.setBounds(500, 40, 200, 35);
-        
 
         add(libelleIdClasse);
         add(libelleNumSeance);
