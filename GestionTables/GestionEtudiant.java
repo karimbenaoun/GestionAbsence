@@ -12,7 +12,7 @@ import DataBase.Base;
 public class GestionEtudiant {
     private Connection cnn;
     private Base db;
-    int id_etudiant;
+    int id_etudiant,id_classe;
     String nom, prenom,login;
 
     public GestionEtudiant() {
@@ -38,7 +38,7 @@ public class GestionEtudiant {
             System.out.println(e.toString());
         }
 
-        String query = "SELECT * FROM ETUDIANT WHERE login ='" + username + "' AND passwd = '" + passwd + "'";
+        String query = "SELECT * FROM ETUDIANT WHERE login ='" + username + "' AND password = '" + passwd + "'";
 
         try {
             PreparedStatement preparedStatement = this.cnn.prepareStatement(query);
@@ -48,7 +48,8 @@ public class GestionEtudiant {
                 nom = res.getString(2);
                 prenom = res.getString(3);
                 login = res.getString(4);
-                Etudiant etudiant = new Etudiant(id_etudiant, nom, prenom, login);
+                id_classe = res.getInt(6);
+                Etudiant etudiant = new Etudiant(id_etudiant, nom, prenom, login,query, id_classe);
                 return etudiant;
             }
         } catch (SQLException e) {
