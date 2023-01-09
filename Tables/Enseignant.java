@@ -8,6 +8,9 @@ public class Enseignant extends Personnes {
         this.id_enseignant = id_enseignant;
     }
 
+    public Enseignant() {
+    }
+
     public int getIdEnseignant() {
         return id_enseignant;
     }
