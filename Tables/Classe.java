@@ -51,7 +51,7 @@ public class Classe {
     }
 
     public String toString() {
-        return "id classe = " + this.id_classe + " Libelle = " + this.libelle + "  niveau = " + this.niveau
-                + "filiere =  " + this.filiere;
+        return "id classe = " + this.id_classe + " Libelle = " + this.libelle + " niveau = " + this.niveau
+                + " filiere =  " + this.filiere;
     }
 }

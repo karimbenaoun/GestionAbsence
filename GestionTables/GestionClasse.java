@@ -30,20 +30,17 @@ public class GestionClasse {
             while(resultat.next()){
                 this.id = resultat.getInt(1);
                 this.libelle = resultat.getString(2);
-                this.filiaire = resultat.getString(3);
-                this.niveau = resultat.getString(4);  
-                for(int i = 0; i < classe.size(); i++){
-                    
-                    classe.get(i).setIdClasse(this.id);
-                    classe.get(i).setLibelle(this.libelle);
-                    classe.get(i).setFiliere(this.filiaire);
-                    classe.get(i).setNiveau(this.niveau);
+                this.filiaire = resultat.getString(4);
+                this.niveau = resultat.getString(3);  
+               
+                Classe objClasse = new Classe();
 
-                    System.out.println("id : " + this.classe.get(i).getIdClasse() + " libelle: " + this.classe.get(i)
-                            .getLibelle() + " filiaire : " + this.classe.get(i).getFiliere()
-                            + " niveau " + this.classe.get(i).getNiveau());
-                }
-                System.out.println("id : " + this.id + " libelle: " + this.libelle + " filiaire : "+ this.filiaire + " niveau " + this.niveau);
+                objClasse.setIdClasse(this.id);
+                objClasse.setLibelle(this.libelle);
+                objClasse.setNiveau(this.niveau);
+                objClasse.setFiliere(this.filiaire);
+                classe.addElement(objClasse);
+                System.out.println("Classe /> : " + classe );
             } 
                 
             

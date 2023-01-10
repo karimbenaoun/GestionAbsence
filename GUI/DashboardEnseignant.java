@@ -58,6 +58,7 @@ public class DashboardEnseignant extends JFrame {
         // this.cnn = dataBase.connect();
         this.gestionClasse = new GestionClasse();
         this.classe = new Vector();
+        Vector<Vector> data = new Vector<Vector>();
         
         frame = new JFrame();
 
@@ -85,7 +86,7 @@ public class DashboardEnseignant extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                        classe = gestionClasse.getAllClasse();
+                classe = gestionClasse.getAllClasse();
             }
 
         });
