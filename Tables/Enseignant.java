@@ -11,6 +11,11 @@ public class Enseignant extends Personnes {
     public Enseignant() {
     }
 
+    public Enseignant(int id_enseignant2, String nom, String prenom, String login) {
+        super(nom, prenom, login);
+        this.id_enseignant = id_enseignant;
+    }
+
     public int getIdEnseignant() {
         return id_enseignant;
     }
