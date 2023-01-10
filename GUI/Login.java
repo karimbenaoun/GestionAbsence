@@ -101,7 +101,7 @@ public class Login extends JFrame {
                         authEnseignant = GestionEnseignant.authentifierEN(userPasswd, userLogin);
                         if (authEnseignant != null) {
                             dispose();
-                            //new DashboardEtudiant(userLogin, userPasswd);
+                            new DashboardEnseignant(userLogin, userPasswd);
                         } else {
                             JOptionPane.showMessageDialog(frame, "mot de passe ou username n'est pas correct !.");
                         }
