@@ -142,6 +142,7 @@ public class DashboardEtudiant extends JFrame {
                         data.addElement(row1);
 
                         Vector<String> column = new Vector<String>();
+
                         column.addElement("Seance");
                         column.addElement("Date");
                         column.addElement("id etudiant");
@@ -151,7 +152,7 @@ public class DashboardEtudiant extends JFrame {
                         JTable table = new JTable(data, column);
                         table.setBounds(15, 75, 560, 700);
                         add(table);
-                        System.out.println(data);
+                        System.out.println(row1);
                     }
             }
         } catch (SQLException e) {

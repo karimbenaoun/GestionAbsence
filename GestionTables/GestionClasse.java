@@ -15,6 +15,7 @@ public class GestionClasse {
     private ResultSet resultat;
     private String query;
     private Vector<Classe> classe;
+    private Vector<Classe> clonneClasse;
 
     private int id;
     private String libelle, filiaire, niveau;
@@ -40,7 +41,7 @@ public class GestionClasse {
                 objClasse.setNiveau(this.niveau);
                 objClasse.setFiliere(this.filiaire);
                 classe.addElement(objClasse);
-                System.out.println("Classe /> : " + classe );
+                System.out.println("GC /> "+objClasse + "---->" + classe);
             } 
                 
             
