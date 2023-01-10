@@ -66,8 +66,6 @@ public class DashboardEtudiant extends JFrame {
         String DBpassword = "";
         try {
             this.cnn = DriverManager.getConnection(ur1, DBusername, DBpassword);
-            Statement state = this.cnn.createStatement();
-
             System.out.println("Connection avec succées ");
         } catch (SQLException e) {
             System.out.println("connection failed ");

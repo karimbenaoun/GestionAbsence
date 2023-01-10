@@ -48,8 +48,6 @@ public class Login extends JFrame {
         String password = "";
         try {
             cnn = DriverManager.getConnection(ur1, DBusername, password);
-            Statement state = cnn.createStatement();
-
             System.out.println("Connection avec succées ");
         } catch (SQLException ex) {
             System.out.println("connection failed ");
@@ -96,7 +94,6 @@ public class Login extends JFrame {
                     ResultSet res = stm.executeQuery(query);
                     PreparedStatement stm1 = cnn.prepareStatement(queryEt);
                     ResultSet res1 = stm1.executeQuery(queryEt);
-                    System.out.println("in query test ! befor if statment");
                     if(res.next()){
                         authEnseignant = GestionEnseignant.authentifierEN(userPasswd, userLogin);
                         if (authEnseignant != null) {

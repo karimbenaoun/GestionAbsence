@@ -1,10 +1,14 @@
 package Tables;
 
+import java.util.Vector;
+
 public class Classe {
     private int id_classe;
     private String libelle;
     private String niveau;
     private String filiere;
+
+    public Classe(){}
 
     public Classe(int id_classe, String libelle, String niveau, String filiere) {
         this.id_classe = id_classe;

@@ -1,129 +1,57 @@
 package GestionTables;
 
-import java.sql.PreparedStatement;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Vector;
+
 import DataBase.Base;
 import Tables.Classe;
 
 public class GestionClasse {
-    private Base cnn = new Base();
-    private Classe classe;
 
-    public GestionClasse(Base cnn) {
-        this.cnn = cnn;
+    private Base dataBase;
+    private Connection conn;
+    private ResultSet resultat;
+    private String query;
+    private Vector<Classe> classe;
 
-    }
+    private int id;
+    private String libelle, filiaire, niveau;
 
-    public Base getCnn() {
-        return cnn;
-    }
 
-    public void setCnn(Base cnn) {
-        this.cnn = cnn;
-    }
+    public Vector <Classe> getAllClasse(){
+        dataBase = new Base();
+        this.classe = new Vector() ;
 
-    public Classe getClasse() {
-        return classe;
-    }
-
-    public void setClasse(Classe classe) {
-        this.classe = classe;
-    }
-
-    public Classe trouvClasse(int id_classe) {
-        String query = "SELECT * FROM classe WHERE id_classe = ? ";
+        this.query = "SELECT * FROM classe ";
+        resultat = dataBase.useStatament(query);
         try {
-            PreparedStatement preparedStatement = cnn.preparedStatement(query);
-            preparedStatement.setInt(1, id_classe);
-            ResultSet res = preparedStatement.executeQuery();
-            if (res.next()) {
-                Classe classe = new Classe(res.getInt(1), res.getString(2), res.getString(3), res.getString(4));
-                return classe;
-            }
-        } catch (Exception e) {
-            System.out.println(e.toString());
-        }
-        return null;
-    }
+            while(resultat.next()){
+                this.id = resultat.getInt(1);
+                this.libelle = resultat.getString(2);
+                this.filiaire = resultat.getString(3);
+                this.niveau = resultat.getString(4);  
+                for(int i = 0; i < classe.size(); i++){
+                    
+                    classe.get(i).setIdClasse(this.id);
+                    classe.get(i).setLibelle(this.libelle);
+                    classe.get(i).setFiliere(this.filiaire);
+                    classe.get(i).setNiveau(this.niveau);
 
-    public void ajoutClasse(int id_classe, String libelle, String niveau, String filiere) {
-        try {
-            String query = "INSERT INTO classe (`id_classe`,`libelle`, `niveau`, `filière`  ) VALUES (?,?,?,?)";
-            PreparedStatement preparedStatement = cnn.preparedStatement(query);
-            preparedStatement.setInt(1, id_classe);
-            preparedStatement.setString(2, libelle);
-            preparedStatement.setString(3, niveau);
-            preparedStatement.setString(4, filiere);
-            preparedStatement.executeUpdate();
-        } catch (Exception e) {
-            System.out.println(e.toString());
-        }
-
-    }
-
-    public void supprimClasse(int id_classe) {
-        try {
-            String query = "DELETE FROM `classe` WHERE id_classe = ?";
-            PreparedStatement preparedStatement = cnn.preparedStatement(query);
-            preparedStatement.setInt(1, id_classe);
-            preparedStatement.executeUpdate();
-
+                    System.out.println("id : " + this.classe.get(i).getIdClasse() + " libelle: " + this.classe.get(i)
+                            .getLibelle() + " filiaire : " + this.classe.get(i).getFiliere()
+                            + " niveau " + this.classe.get(i).getNiveau());
+                }
+                System.out.println("id : " + this.id + " libelle: " + this.libelle + " filiaire : "+ this.filiaire + " niveau " + this.niveau);
+            } 
+                
+            
         } catch (SQLException e) {
-            System.out.print(e.toString());
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
-    }
-
-    public void modifLibelleClasse(int id_classe, String libelle) {
-        try {
-            String query = "UPDATE `classe` SET `libelle` = ? WHERE `id_classe` = ?";
-            PreparedStatement preparedStatement = cnn.preparedStatement(query);
-            preparedStatement.setInt(2, id_classe);
-            preparedStatement.setString(1, libelle);
-            preparedStatement.executeUpdate();
-        } catch (Exception e) {
-            System.out.print("erreur: " + e.toString());
-        }
-    }
-
-    public void modifNiveauClasse(int id_classe, String niveau) {
-        try {
-            String query = "UPDATE `classe` SET `niveau` = ? WHERE `id_classe` = ?";
-            PreparedStatement preparedStatement = cnn.preparedStatement(query);
-            preparedStatement.setInt(2, id_classe);
-            preparedStatement.setString(1, niveau);
-            preparedStatement.executeUpdate();
-        } catch (Exception e) {
-            System.out.print("erreur: " + e.toString());
-        }
-    }
-
-    public void modifFiliereClasse(int id_classe, String filiere) {
-        try {
-            String query = "UPDATE `classe` SET `filière` = ? WHERE `id_classe` = ?";
-            PreparedStatement preparedStatement = cnn.preparedStatement(query);
-            preparedStatement.setInt(2, id_classe);
-            preparedStatement.setString(1, filiere);
-            preparedStatement.executeUpdate();
-        } catch (Exception e) {
-            System.out.print("erreur: " + e.toString());
-        }
-    }
-
-    public void afficheClasse(int id_classe) {
-        try {
-            String query = "SELECT * FROM `classe` WHERE id_classe = ?";
-            PreparedStatement preparedStatement = cnn.preparedStatement(query);
-            preparedStatement.setInt(1, id_classe);
-            ResultSet res = preparedStatement.executeQuery();
-            if (res.next()) {
-                Classe classe = new Classe(res.getInt(1), res.getString(2), res.getString(3), res.getString(4));
-                System.out.println(classe.toString());
-            }
-
-        } catch (Exception e) {
-            System.out.println(e.toString());
-        }
+        return classe;
     }
 
 }
