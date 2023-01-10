@@ -66,8 +66,6 @@ public class DashboardEtudiant extends JFrame {
         String DBpassword = "";
         try {
             this.cnn = DriverManager.getConnection(ur1, DBusername, DBpassword);
-            Statement state = this.cnn.createStatement();
-
             System.out.println("Connection avec succées ");
         } catch (SQLException e) {
             System.out.println("connection failed ");
@@ -144,6 +142,7 @@ public class DashboardEtudiant extends JFrame {
                         data.addElement(row1);
 
                         Vector<String> column = new Vector<String>();
+
                         column.addElement("Seance");
                         column.addElement("Date");
                         column.addElement("id etudiant");
@@ -153,7 +152,7 @@ public class DashboardEtudiant extends JFrame {
                         JTable table = new JTable(data, column);
                         table.setBounds(15, 75, 560, 700);
                         add(table);
-                        System.out.println(data);
+                        System.out.println(row1);
                     }
             }
         } catch (SQLException e) {

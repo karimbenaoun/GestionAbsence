@@ -2,9 +2,151 @@ package GestionTables;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import DataBase.Base;
+import java.sql.SQLException;
+import java.sql.*;
+
 import Tables.Enseignant;
 
+public class GestionEnseignant {
+    private static Connection cnn;
+    static int id_enseignant;
+    static String nom;
+    static String prenom;
+    static String login;
+
+    public GestionEnseignant() {
+    }
+
+    public static Enseignant authentifierEN(String passwd, String username) {
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException e1) {
+            e1.printStackTrace();
+        }
+        String ur1 = "jdbc:mysql://localhost:3306/gestion_absence";
+        String DBusername = "root";
+        String password = "";
+        try {
+            cnn = DriverManager.getConnection(ur1, DBusername, password);
+            Statement state = cnn.createStatement();
+
+            System.out.println("Connection avec succées ");
+        } catch (SQLException e) {
+            System.out.println("connection failed ");
+            System.out.println(e.toString());
+        }
+
+        String query = "SELECT * FROM ENSEIGNANT WHERE login ='" + username + "' AND password = '" + passwd + "'";
+
+        try {
+            PreparedStatement preparedStatement = cnn.prepareStatement(query);
+            ResultSet res = preparedStatement.executeQuery(query);
+            if (res.next()) {
+                id_enseignant = res.getInt(1);
+                nom = res.getString(2);
+                prenom = res.getString(3);
+                login = res.getString(4);
+                
+                Enseignant enseignant = new Enseignant(id_enseignant, nom, prenom, login);
+                return enseignant;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 
 public class GestionEnseignant {
     private Base cn;
     private Enseignant enseignant;
@@ -138,3 +280,4 @@ public class GestionEnseignant {
     }
 
 }
+*/

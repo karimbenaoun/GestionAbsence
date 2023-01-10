@@ -10,13 +10,13 @@ public class Base {
     public Base() {
     }
 
-    public void connect() {
+    public Connection connect() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException e1) {
             e1.printStackTrace();
         }
-        String ur1 = "jdbc:mysql://localhost:3306/gestion_ab";
+        String ur1 = "jdbc:mysql://localhost:3306/gestion_absence";
         String DBusername = "root";
         String password = "";
         try {
@@ -28,43 +28,11 @@ public class Base {
             System.out.println("connection failed ");
             System.out.println(e.toString());
         }
-    }
-
-    public void close() {
-        try {
-            this.conn.close();
-        } catch (Exception e) {
-            System.out.println(e.toString());
-        }
-    }
-
-    public Connection getConnection() {
-        return this.conn;
-    }
-
-    public PreparedStatement preparedStatement(String SQLQuerry) {
-        try {
-            return this.conn.prepareStatement(SQLQuerry);
-        } catch (Exception e) {
-            System.out.println(e.toString());
-        }
-        return null;
-    }
-
-    public void updateQuerry(String SQLQuerry) {
-        this.connect();
-        try {
-            Statement stmt = this.conn.createStatement();
-            stmt.executeUpdate(SQLQuerry);
-            System.out.println("requette avet succe");
-        } catch (Exception e) {
-            System.out.println(e.toString());
-            System.out.println("requette failed");
-        }
+        return conn;
     }
 
     public ResultSet useStatament(String SQLQuuerry) {
-        this.connect();
+        this.conn = this.connect();
         try {
             Statement stmt = this.conn.createStatement();
             ResultSet rs = stmt.executeQuery(SQLQuuerry);
