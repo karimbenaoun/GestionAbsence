@@ -41,9 +41,7 @@ public class GestionClasse {
                 objClasse.setNiveau(this.niveau);
                 objClasse.setFiliere(this.filiaire);
                 classe.addElement(objClasse);
-                System.out.println("GC /> "+objClasse + "---->" + classe);
             } 
-                
             
         } catch (SQLException e) {
             // TODO Auto-generated catch block
