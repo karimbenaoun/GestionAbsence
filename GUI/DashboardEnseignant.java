@@ -64,38 +64,23 @@ public class DashboardEnseignant extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                String strId;
-                String libelle;
-                String filiaire;
-                String niveau;
+                
+                String[] libelle = new String[100];
+                Vector<String> row = new Vector<String>();
                 classe = gestionClasse.getAllClasse();
                 for(int i = 0; i < classe.size(); i++){
-                    int id = classe.get(i).getIdClasse();
-                    strId = Integer.toString(id);
-                    libelle = classe.get(i).getLibelle();
-                    filiaire = classe.get(i).getFiliere();
-                    niveau = classe.get(i).getNiveau();
-
-                    Vector<String> row = new Vector<String>();
-                    row.addElement(strId);
-                    row.addElement(libelle);
-                    row.addElement(filiaire);
-                    row.addElement(niveau);
-
-                    Vector<String> columns = new Vector<String>();
-
-                    columns.addElement("titel1");
-                    columns.addElement("titel1");
-                    columns.addElement("titel1");
-                    columns.addElement("titel1");
+                    libelle[i] = classe.get(i).getLibelle();
                     
-                    Vector<Vector> data = new Vector<Vector>();
-                    data.addElement(row);
-                    System.out.println("data : "+data);
-                    JTable table = new JTable(data,columns);
-                    table.setBounds(50, 100,500,600);
-                    add(table);
+                    row.addElement(libelle[i]);
                 }
+                Vector<String> columns = new Vector<String>();
+                columns.addElement("titel1");
+                Vector<Vector> data = new Vector<Vector>();
+                data.addElement(row);
+                System.out.println("data => " + data);
+                JTable table = new JTable(data, columns);
+                table.setBounds(70, 200, 400, 300);
+                add(table);
             }
 
         });
