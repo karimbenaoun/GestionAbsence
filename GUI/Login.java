@@ -20,6 +20,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import DataBase.Base;
+
 public class Login extends JFrame {
 
     JFrame frame;
@@ -32,29 +34,14 @@ public class Login extends JFrame {
     String userLogin;
     char[] userPassword;
     Connection cnn;
+    private Base db;
 
     public Login() {
 
         frame = new JFrame();
 
-        // db connexion :
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-        } catch (ClassNotFoundException e1) {
-            e1.printStackTrace();
-        }
-        String ur1 = "jdbc:mysql://localhost:3306/gestion_absence";
-        String DBusername = "root";
-        String password = "";
-        try {
-            cnn = DriverManager.getConnection(ur1, DBusername, password);
-            System.out.println("Connection avec succées ");
-        } catch (SQLException ex) {
-            System.out.println("connection failed ");
-            System.out.println(ex.toString());
-        }
-
-        
+        db = new Base();
+        db.connect();
 
         label1 = new JLabel("Login");
         label1.setBounds(50, 50, 100, 30);
