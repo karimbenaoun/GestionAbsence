@@ -114,10 +114,8 @@ public class DashboardEtudiant extends JFrame {
                 String idEtt = Integer.toString(idEt);
 
                 int idEns = res.getInt(4);
-                String idEs = Integer.toString(idEns);
 
                 int idMat = res.getInt(5);
-                String idMt = Integer.toString(idMat);
 
                 String query50 = "SELECT * FROM enseignant WHERE id = '"+idEns+"' ";
                 String query51 = "SELECT * FROM matiere WHERE id = '" + idMat + "' ";

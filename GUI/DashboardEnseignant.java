@@ -35,7 +35,6 @@ public class DashboardEnseignant extends JFrame {
 
     public DashboardEnseignant(String username, String password) {
         this.dataBase = new Base();
-        // this.cnn = dataBase.connect();
         this.gestionClasse = new GestionClasse();
         this.classe = new Vector<Classe>();
 
@@ -66,47 +65,43 @@ public class DashboardEnseignant extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ArrayList<Classe> ListClasse = new ArrayList<Classe> ();
-                String[] columns = new String[4];
-                String data[][] = new String[100][100];
 
-                columns[0]=("titel1");
-                columns[1] = ("titel1");
-                columns[2] = ("titel1");
-                columns[3] = ("titel1");
+                
                 ListClasse = gestionClasse.getAllClasse();
+
+                Vector<Vector> data1 = new Vector<Vector>();
+                Vector<String> column = new Vector<String>();
                 for(int i=0; i < ListClasse.size(); i++){
 
-                    String ch,ch1,ch4,ch2,ch3="";
+                    int idClasse;
+                    String libelle, niveau,filliaire,idCls;
+
                     
-                    ch=ListClasse.get(i).toString();
+                    idClasse = ListClasse.get(i).getIdClasse();
+                    idCls = Integer.toString(idClasse);
+                    libelle = ListClasse.get(i).getLibelle();
+                    niveau = ListClasse.get(i).getNiveau();
+                    filliaire = ListClasse.get(i).getFiliere();
 
-                    ch1=ch.substring(ch.indexOf('=')+1, ch.indexOf(','));
-                    data[i][0]=ch1;
-                    ch=ch.substring(ch.indexOf(',')+1, ch.length());
+                    Vector<String> row1 = new Vector<String>();
+                    row1.addElement(idCls);
+                    row1.addElement(libelle);
+                    row1.addElement(niveau);
+                    row1.addElement(filliaire);
 
-                    ch2 = ch.substring(ch.indexOf('=') + 1, ch.indexOf(','));
-                    data[i][1]=ch2;
-                    ch = ch.substring(ch.indexOf(',') + 1, ch.length());
+                    data1.addElement(row1);
 
-                    ch3 = ch.substring(ch.indexOf('=') + 1, ch.indexOf(','));
-                    data[i][2] = ch3;
-                    ch = ch.substring(ch.indexOf(',') + 1, ch.length());
+                    column.addElement("id");
+                    column.addElement("libelle");
+                    column.addElement("niveau");
+                    column.addElement("filiaire");
 
-                    ch4 = ch.substring(ch.indexOf('=') + 1, ch.length());
-                    
-                    data[i][3]=ch4;
-                        System.out.println("ena houni data : " + data[i][0]);
-
-                }
-                
-                
-                    JTable table = new JTable(data, columns);
+                    System.out.println("ena houni data : " + data1);
+                    JTable table = new JTable(data1, column);
                     table.setBounds(70, 200, 700, 500);
                     add(table);
-                
-                
+                }     
             }
-
         });
 
         add(libelleNom);
@@ -120,11 +115,3 @@ public class DashboardEnseignant extends JFrame {
     }
 
 }
-
-/*
-  tbleau = {
-    {lcs2},
-    {lsc3},
-    {3a1}
-}
- */
