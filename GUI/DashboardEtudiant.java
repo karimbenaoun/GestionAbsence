@@ -35,7 +35,7 @@ public class DashboardEtudiant extends JFrame {
     private Enseignant enseignant;
     private Matiere matiere;
     private GestionEtudiant gestionEtudiant;
-    
+
     private Connection cnn;
 
     public DashboardEtudiant(String username, String password) {
@@ -61,7 +61,7 @@ public class DashboardEtudiant extends JFrame {
         } catch (ClassNotFoundException e1) {
             e1.printStackTrace();
         }
-        String ur1 = "jdbc:mysql://localhost:3306/gestion_absence";
+        String ur1 = "jdbc:mysql://localhost:3306/gestion_ab";
         String DBusername = "root";
         String DBpassword = "";
         try {
@@ -71,8 +71,6 @@ public class DashboardEtudiant extends JFrame {
             System.out.println("connection failed ");
             System.out.println(e.toString());
         }
-
-        
 
         String query = "SELECT * FROM CLASSE WHERE id = '" + id_class + "'";
         try {
@@ -86,8 +84,6 @@ public class DashboardEtudiant extends JFrame {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-
 
         query = "SELECT * FROM ABSENCE WHERE id_etudiant = '" + id + "'";
         try {
@@ -117,41 +113,41 @@ public class DashboardEtudiant extends JFrame {
 
                 int idMat = res.getInt(5);
 
-                String query50 = "SELECT * FROM enseignant WHERE id = '"+idEns+"' ";
+                String query50 = "SELECT * FROM enseignant WHERE id = '" + idEns + "' ";
                 String query51 = "SELECT * FROM matiere WHERE id = '" + idMat + "' ";
 
-                    Statement stm50 = this.cnn.prepareStatement(query50);
-                    ResultSet res50 = stm50.executeQuery(query50);
-                    Statement stm51= this.cnn.prepareStatement(query51);
-                    ResultSet res51 = stm51.executeQuery(query51);
-                    if (res50.next() && res51.next()) {
-                        String nomEns = res50.getString(2);
-                        String mat = res51.getString(2);
-                        System.out.println("num seance : " + numSeance + " date : " + strDate + " id etudiant : " + nom
-                                + " id enseignant : " + nomEns + " id matiere : " + mat);
+                Statement stm50 = this.cnn.prepareStatement(query50);
+                ResultSet res50 = stm50.executeQuery(query50);
+                Statement stm51 = this.cnn.prepareStatement(query51);
+                ResultSet res51 = stm51.executeQuery(query51);
+                if (res50.next() && res51.next()) {
+                    String nomEns = res50.getString(2);
+                    String mat = res51.getString(2);
+                    System.out.println("num seance : " + numSeance + " date : " + strDate + " id etudiant : " + nom
+                            + " id enseignant : " + nomEns + " id matiere : " + mat);
 
-                                Vector<String> row1 = new Vector<String>();
-                        row1.addElement(numSeance);
-                        row1.addElement(strDate);
-                        row1.addElement(nom);
-                        row1.addElement(nomEns);
-                        row1.addElement(mat);
+                    Vector<String> row1 = new Vector<String>();
+                    row1.addElement(numSeance);
+                    row1.addElement(strDate);
+                    row1.addElement(nom);
+                    row1.addElement(nomEns);
+                    row1.addElement(mat);
 
-                        data.addElement(row1);
+                    data.addElement(row1);
 
-                        Vector<String> column = new Vector<String>();
+                    Vector<String> column = new Vector<String>();
 
-                        column.addElement("Seance");
-                        column.addElement("Date");
-                        column.addElement("id etudiant");
-                        column.addElement("id enseignat");
-                        column.addElement("id matiere");
+                    column.addElement("Seance");
+                    column.addElement("Date");
+                    column.addElement("id etudiant");
+                    column.addElement("id enseignat");
+                    column.addElement("id matiere");
 
-                        JTable table = new JTable(data, column);
-                        table.setBounds(15, 75, 560, 700);
-                        add(table);
-                        System.out.println(row1);
-                    }
+                    JTable table = new JTable(data, column);
+                    table.setBounds(15, 75, 560, 700);
+                    add(table);
+                    System.out.println(row1);
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -183,7 +179,7 @@ public class DashboardEtudiant extends JFrame {
         add(libelleEtudiant);
         add(libelleEnseignant);
         add(libelleMatier);
-        
+
         add(libelleNom);
         add(libellePrenom);
         add(libelleIdClasse);

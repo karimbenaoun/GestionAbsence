@@ -26,6 +26,7 @@ public class Login extends JFrame {
     JLabel label1, lable2;
     JTextField tfLogin;
     JPasswordField pfPassword;
+    JButton btnSignUp;
     JButton btnConnection;
     GestionEtudiant gestionEtudiant;
     GestionEnseignant gestionEnseignant;
@@ -33,6 +34,9 @@ public class Login extends JFrame {
     char[] userPassword;
     Connection cnn;
 
+    /**
+     * 
+     */
     public Login() {
 
         frame = new JFrame();
@@ -43,7 +47,7 @@ public class Login extends JFrame {
         } catch (ClassNotFoundException e1) {
             e1.printStackTrace();
         }
-        String ur1 = "jdbc:mysql://localhost:3306/gestion_absence";
+        String ur1 = "jdbc:mysql://localhost:3306/gestion_ab";
         String DBusername = "root";
         String password = "";
         try {
@@ -53,8 +57,6 @@ public class Login extends JFrame {
             System.out.println("connection failed ");
             System.out.println(ex.toString());
         }
-
-        
 
         label1 = new JLabel("Login");
         label1.setBounds(50, 50, 100, 30);
@@ -66,8 +68,20 @@ public class Login extends JFrame {
         pfPassword = new JPasswordField();
         pfPassword.setBounds(50, 130, 100, 20);
 
+        JButton btnSignUp = new JButton("Sign Up");
+        btnSignUp.setBounds(270, 140, 100, 30);
+
+        btnSignUp.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+
+        });
+
         btnConnection = new JButton("connection");
-        btnConnection.setBounds(300, 140, 100, 30);
+        btnConnection.setBounds(375, 140, 100, 30);
 
         btnConnection.addActionListener(new ActionListener() {
 
@@ -83,18 +97,15 @@ public class Login extends JFrame {
                 userPassword = pfPassword.getPassword();
                 String userPasswd = new String(userPassword);
 
-                
-
-               
-                //query to check user role :
-                String query = "SELECT * FROM enseignant WHERE login = '"+userLogin+"'";
+                // query to check user role :
+                String query = "SELECT * FROM enseignant WHERE login = '" + userLogin + "'";
                 String queryEt = "SELECT * FROM etudiant WHERE login = '" + userLogin + "'";
                 try {
                     PreparedStatement stm = cnn.prepareStatement(query);
                     ResultSet res = stm.executeQuery(query);
                     PreparedStatement stm1 = cnn.prepareStatement(queryEt);
                     ResultSet res1 = stm1.executeQuery(queryEt);
-                    if(res.next()){
+                    if (res.next()) {
                         authEnseignant = GestionEnseignant.authentifierEN(userPasswd, userLogin);
                         if (authEnseignant != null) {
                             dispose();
@@ -102,20 +113,20 @@ public class Login extends JFrame {
                         } else {
                             JOptionPane.showMessageDialog(frame, "mot de passe ou username n'est pas correct !.");
                         }
-                    }else if(res1.next()){
+                    } else if (res1.next()) {
                         auth = gestionEtudiant.authentifier(userPasswd, userLogin);
                         if (auth != null) {
                             dispose();
                             new DashboardEtudiant(userLogin, userPasswd);
                         }
-                    }else{
-                        JOptionPane.showMessageDialog(frame, "USER ERROR /> Not found on Data Base ! or userLogin not valid or password not valid !.");
+                    } else {
+                        JOptionPane.showMessageDialog(frame,
+                                "USER ERROR /> Not found on Data Base ! or userLogin not valid or password not valid !.");
                     }
                 } catch (SQLException e1) {
                     // TODO Auto-generated catch block
                     e1.printStackTrace();
                 }
-                
 
             }
         });
@@ -126,6 +137,7 @@ public class Login extends JFrame {
         add(tfLogin);
         add(pfPassword);
         add(btnConnection);
+        add(btnSignUp);
         setSize(500, 230);
         setLayout(null);
         setVisible(true);
