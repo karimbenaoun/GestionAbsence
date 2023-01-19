@@ -66,21 +66,37 @@ public class DashboardEnseignant extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ArrayList<Classe> ListClasse = new ArrayList<Classe> ();
-                String[] columns = new String[5];
-                Classe data[][] = new Classe[100][100];
+                String[] columns = new String[4];
+                String data[][] = new String[100][100];
 
                 columns[0]=("titel1");
                 columns[1] = ("titel1");
                 columns[2] = ("titel1");
                 columns[3] = ("titel1");
-                columns[4] = ("titel1");
                 ListClasse = gestionClasse.getAllClasse();
                 for(int i=0; i < ListClasse.size(); i++){
-                    //for(int j = 0; j < ListClasse.size(); j++){
-                        data[0][i] = ListClasse.get(i);
-                        System.out.println("ena houni data : " + data[0][i]);
-                    //}
+
+                    String ch,ch1,ch4,ch2,ch3="";
                     
+                    ch=ListClasse.get(i).toString();
+
+                    ch1=ch.substring(ch.indexOf('=')+1, ch.indexOf(','));
+                    data[i][0]=ch1;
+                    ch=ch.substring(ch.indexOf(',')+1, ch.length());
+
+                    ch2 = ch.substring(ch.indexOf('=') + 1, ch.indexOf(','));
+                    data[i][1]=ch2;
+                    ch = ch.substring(ch.indexOf(',') + 1, ch.length());
+
+                    ch3 = ch.substring(ch.indexOf('=') + 1, ch.indexOf(','));
+                    data[i][2] = ch3;
+                    ch = ch.substring(ch.indexOf(',') + 1, ch.length());
+
+                    ch4 = ch.substring(ch.indexOf('=') + 1, ch.length());
+                    
+                    data[i][3]=ch4;
+                        System.out.println("ena houni data : " + data[i][0]);
+
                 }
                 
                 
