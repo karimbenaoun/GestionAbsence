@@ -12,8 +12,8 @@ import DataBase.Base;
 public class GestionEtudiant {
     private Connection cnn;
     private Base db;
-    int id_etudiant,id_classe;
-    String nom, prenom,login;
+    int id_etudiant, id_classe;
+    String nom, prenom, login;
 
     public GestionEtudiant() {
     }
@@ -25,7 +25,7 @@ public class GestionEtudiant {
         } catch (ClassNotFoundException e1) {
             e1.printStackTrace();
         }
-        String ur1 = "jdbc:mysql://localhost:3306/gestion_absence";
+        String ur1 = "jdbc:mysql://localhost:3306/gestion_ab";
         String DBusername = "root";
         String password = "";
         try {
@@ -49,7 +49,7 @@ public class GestionEtudiant {
                 prenom = res.getString(3);
                 login = res.getString(4);
                 id_classe = res.getInt(6);
-                Etudiant etudiant = new Etudiant(id_etudiant, nom, prenom, login,query, id_classe);
+                Etudiant etudiant = new Etudiant(id_etudiant, nom, prenom, login, query, id_classe);
                 return etudiant;
             }
         } catch (SQLException e) {
