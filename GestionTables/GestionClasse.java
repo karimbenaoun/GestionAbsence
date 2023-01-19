@@ -3,6 +3,7 @@ package GestionTables;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Vector;
 
 import DataBase.Base;
@@ -14,16 +15,17 @@ public class GestionClasse {
     private Connection conn;
     private ResultSet resultat;
     private String query;
-    private Vector<Classe> classe;
+    private ArrayList<Classe> classe;
     private Vector<Classe> clonneClasse;
 
     private int id;
     private String libelle, filiaire, niveau;
 
 
-    public Vector <Classe> getAllClasse(){
+    public ArrayList<Classe> getAllClasse(){
+        
         dataBase = new Base();
-        this.classe = new Vector() ;
+        this.classe = new ArrayList <Classe> () ;
 
         this.query = "SELECT * FROM classe ";
         resultat = dataBase.useStatament(query);
@@ -40,7 +42,9 @@ public class GestionClasse {
                 objClasse.setLibelle(this.libelle);
                 objClasse.setNiveau(this.niveau);
                 objClasse.setFiliere(this.filiaire);
-                classe.addElement(objClasse);
+                System.out.println("moi ici => "+objClasse);
+                classe.add(objClasse);
+                //System.out.println("ena houni " + classe);
             } 
             
         } catch (SQLException e) {

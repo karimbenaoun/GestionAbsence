@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.swing.JButton;
@@ -64,23 +65,30 @@ public class DashboardEnseignant extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                
-                String[] libelle = new String[100];
-                Vector<String> row = new Vector<String>();
-                classe = gestionClasse.getAllClasse();
-                for(int i = 0; i < classe.size(); i++){
-                    libelle[i] = classe.get(i).getLibelle();
+                ArrayList<Classe> ListClasse = new ArrayList<Classe> ();
+                String[] columns = new String[5];
+                Classe data[][] = new Classe[100][100];
+
+                columns[0]=("titel1");
+                columns[1] = ("titel1");
+                columns[2] = ("titel1");
+                columns[3] = ("titel1");
+                columns[4] = ("titel1");
+                ListClasse = gestionClasse.getAllClasse();
+                for(int i=0; i < ListClasse.size(); i++){
+                    //for(int j = 0; j < ListClasse.size(); j++){
+                        data[0][i] = ListClasse.get(i);
+                        System.out.println("ena houni data : " + data[0][i]);
+                    //}
                     
-                    row.addElement(libelle[i]);
                 }
-                Vector<String> columns = new Vector<String>();
-                columns.addElement("titel1");
-                Vector<Vector> data = new Vector<Vector>();
-                data.addElement(row);
-                System.out.println("data => " + data);
-                JTable table = new JTable(data, columns);
-                table.setBounds(70, 200, 400, 300);
-                add(table);
+                
+                
+                    JTable table = new JTable(data, columns);
+                    table.setBounds(70, 200, 700, 500);
+                    add(table);
+                
+                
             }
 
         });
@@ -96,3 +104,11 @@ public class DashboardEnseignant extends JFrame {
     }
 
 }
+
+/*
+  tbleau = {
+    {lcs2},
+    {lsc3},
+    {3a1}
+}
+ */
