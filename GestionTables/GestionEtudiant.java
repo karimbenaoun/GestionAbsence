@@ -25,7 +25,7 @@ public class GestionEtudiant {
         } catch (ClassNotFoundException e1) {
             e1.printStackTrace();
         }
-        String ur1 = "jdbc:mysql://localhost:3306/gestion_ab";
+        String ur1 = "jdbc:mysql://localhost:3306/gestion_absence";
         String DBusername = "root";
         String password = "";
         try {
@@ -57,6 +57,24 @@ public class GestionEtudiant {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public void signUp(String nom, String prenom, String login, String password, int idClasse) {
+        db = new Base();
+        this.cnn = db.connect();
+        String query = "INSERT INTO etudiant (`nom`, `prenom`, `login`, `password`, `id_classe`) VALUES ('" + nom + "', '" + prenom
+                + "', '" + login + "', '" + password + "', '"+idClasse+"')";
+        try {
+            PreparedStatement stm = this.cnn.prepareStatement(query);
+            int res = stm.executeUpdate();
+            if (res == 1) {
+                System.out.println("Console add /> add with success");
+            } else {
+                System.out.println("Console add /> Error Fail");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 
 }

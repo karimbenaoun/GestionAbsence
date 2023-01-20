@@ -26,8 +26,7 @@ public class GestionEnseignant {
 
     public static Enseignant authentifierEN(String passwd, String username) {
 
-
-
+        cnn = db.connect();
         String query = "SELECT * FROM ENSEIGNANT WHERE login ='" + username + "' AND password = '" + passwd + "'";
 
         try {
@@ -47,4 +46,22 @@ public class GestionEnseignant {
         }
         return null;
     }
+
+    public void signUp(String nom, String prenom, String login, String password){
+        db = new Base();
+        this.cnn = db.connect();
+        String query = "INSERT INTO enseignant (`nom`, `prenom`, `login`, `password`) VALUES ('"+nom+"', '"+prenom+"', '"+login+"', '"+password+"')";
+        try{
+            PreparedStatement stm = this.cnn.prepareStatement(query);
+            int res = stm.executeUpdate();
+            if(res==1){
+                System.out.println("Console add /> add with success");
+            }else{
+                System.out.println("Console add /> Error Fail");
+            }
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }
+    }
+}
 
