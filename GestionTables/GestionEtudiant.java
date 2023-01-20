@@ -3,6 +3,7 @@ package GestionTables;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.sql.*;
 
 import GUI.DashboardEtudiant;
@@ -14,6 +15,9 @@ public class GestionEtudiant {
     private Base db;
     int id_etudiant, id_classe;
     String nom, prenom, login;
+    private ArrayList<Etudiant> etudiant;
+    private String query;
+    private ResultSet resultat;
 
     public GestionEtudiant() {
     }
@@ -75,6 +79,38 @@ public class GestionEtudiant {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+    }
+
+    public ArrayList<Etudiant> getEtudiantByIdClasse(int idClasse){
+        db = new Base();
+        this.cnn = db.connect();
+        this.etudiant = new ArrayList<Etudiant>();
+        this.query = "SELECT * FROM etudiant WHERE id_classe = '"+idClasse+"'";
+        this.resultat = db.useStatament(query);
+
+        try {
+            while (resultat.next()) {
+                this.id_etudiant = resultat.getInt(1);
+                this.nom = resultat.getString(2);
+                this.prenom = resultat.getString(3);
+                this.login = resultat.getString(4);
+                this.id_classe = resultat.getInt(6);
+
+                Etudiant objEtudiant = new Etudiant();
+
+                objEtudiant.setIdEtudiant(this.id_etudiant);
+                objEtudiant.setNom(this.nom);
+                objEtudiant.setPrenom(this.prenom);
+                objEtudiant.setLogin(this.login);
+                objEtudiant.setIdClasse(idClasse);
+                this.etudiant.add(objEtudiant);
+            }
+
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return etudiant;
     }
 
 }
