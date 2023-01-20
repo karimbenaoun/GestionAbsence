@@ -16,7 +16,7 @@ public class Base {
         } catch (ClassNotFoundException e1) {
             e1.printStackTrace();
         }
-        String ur1 = "jdbc:mysql://localhost:3306/gestion_ab";
+        String ur1 = "jdbc:mysql://localhost:3306/gestion_absence";
         String DBusername = "root";
         String password = "";
         try {

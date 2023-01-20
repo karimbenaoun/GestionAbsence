@@ -32,14 +32,13 @@ public class Login extends JFrame {
     JButton btnConnection;
     GestionEtudiant gestionEtudiant;
     GestionEnseignant gestionEnseignant;
+    SingUpEnseignant signUpGui;
+    SingUpEtudiant singUpEtudiant;
     String userLogin;
     char[] userPassword;
     Connection cnn;
     private Base db;
 
-    /**
-     * 
-     */
     public Login() {
 
         frame = new JFrame();
@@ -54,20 +53,34 @@ public class Login extends JFrame {
         pfPassword = new JPasswordField();
         pfPassword.setBounds(50, 130, 100, 20);
 
-        JButton btnSignUp = new JButton("Sign Up");
-        btnSignUp.setBounds(270, 140, 100, 30);
+        JButton btnSignUp = new JButton("Sign Up Enseignant");
+        btnSignUp.setBounds(330, 200, 200, 30);
+
+        JButton btnSignUpEtudiant = new JButton("Sign Up Etudiant");
+        btnSignUpEtudiant.setBounds(100, 200, 200, 30);
 
         btnSignUp.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                dispose();
+                signUpGui = new SingUpEnseignant();
+            }
 
+        });
+
+        btnSignUpEtudiant.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                singUpEtudiant = new SingUpEtudiant();
             }
 
         });
 
         btnConnection = new JButton("connection");
-        btnConnection.setBounds(375, 140, 100, 30);
+        btnConnection.setBounds(550, 200, 100, 30);
 
         btnConnection.addActionListener(new ActionListener() {
 
@@ -124,7 +137,8 @@ public class Login extends JFrame {
         add(pfPassword);
         add(btnConnection);
         add(btnSignUp);
-        setSize(500, 230);
+        add(btnSignUpEtudiant);
+        setSize(700, 350);
         setLayout(null);
         setVisible(true);
     }
