@@ -40,7 +40,8 @@ public class Login extends JFrame {
     private Base db;
 
     public Login() {
-
+        db = new Base();
+        this.cnn = db.connect();
         frame = new JFrame();
 
         label1 = new JLabel("Login");

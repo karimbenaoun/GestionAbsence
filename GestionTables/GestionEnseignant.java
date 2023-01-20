@@ -25,7 +25,7 @@ public class GestionEnseignant {
     }
 
     public static Enseignant authentifierEN(String passwd, String username) {
-
+        db = new Base();
         cnn = db.connect();
         String query = "SELECT * FROM ENSEIGNANT WHERE login ='" + username + "' AND password = '" + passwd + "'";
 
